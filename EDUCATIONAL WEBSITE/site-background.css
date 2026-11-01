@@ -1,0 +1,58 @@
+/* Shared parallax background for every ClearPath page. */
+:root {
+  --site-bg-image: url("background-justice-gavel.webp");
+  --site-bg-offset: 0px;
+}
+
+html { background: #0c1f1a; }
+
+body {
+  min-height: 100vh;
+  background: transparent !important;
+  isolation: isolate;
+}
+
+body::before,
+body::after {
+  content: "";
+  position: fixed;
+  inset: -10%;
+  pointer-events: none;
+}
+
+body::before {
+  background: var(--site-bg-image) center / cover no-repeat;
+  transform: translate3d(0, var(--site-bg-offset), 0) scale(1.1);
+  will-change: transform;
+  z-index: -2;
+}
+
+body::after {
+  background: rgba(6, 27, 20, 0.58);
+  z-index: -1;
+}
+
+body > header,
+body > main,
+body > footer,
+body > article {
+  position: relative;
+  z-index: 0;
+}
+
+/* Keep education content readable while letting the artwork remain visible. */
+body > main { background-color: rgba(250, 249, 246, 0.92) !important; }
+body > article {
+  margin-block: 32px;
+  background: rgba(250, 249, 246, 0.94);
+  border-radius: 12px;
+  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.24);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body::before { transform: none; }
+}
+
+@media (max-width: 600px) {
+  body > article { margin-block: 0; border-radius: 0; }
+}
